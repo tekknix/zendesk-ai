@@ -3,6 +3,8 @@ Wichtige Vorabbemerkung zu Zendesk Light Agents: Light Agents sind in der Suite 
 Rovo: KI-Abfragen beziehen sich auf das, auf was der entsprechende Agent Zugriff hat. Kein Zugriff auf Tickets ausserhalb seines Zugriffsbereiches werden nicht von Rovo beachtet.
 
 
+
+
 Zendesk Native AI
 
 ```mermaid
