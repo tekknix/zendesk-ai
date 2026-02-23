@@ -199,16 +199,10 @@ KOSTEN5[JSM Premium: 140 User x $47/Monat = $6.580/Monat
 
 Direktvergleich KI-Infrastruktur (
 ```mermaid
-***
-config:
-  xyChart:
-    width: 900
-    height: 500
-***
 xychart-beta
-    title "Jaehrliche KI-Infrastrukturkosten im Vergleich (ohne Zendesk-Lizenz)"
-    x-axis ["Weg 1 Zendesk Native", "Weg 2 Azure", "Weg 3 Server J1", "Weg 3 Server J2+", "Weg 4 Hetzner", "Weg 5 Rovo/JSM"]
-    y-axis "Kosten USD/Jahr" 0 --> 80000
+    title "KI-Infrastrukturkosten pro Jahr (ohne Zendesk-Lizenz)"
+    x-axis ["Weg 1 Zendesk", "Weg 2 Azure", "Weg 3 Server J1", "Weg 3 Server J2+", "Weg 4 Hetzner", "Weg 5 Rovo"]
+    y-axis "USD pro Jahr" 0 --> 80000
     bar 
 ```
 
