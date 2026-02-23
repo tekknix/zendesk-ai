@@ -1,3 +1,6 @@
+Wichtige Vorabbemerkung zu Zendesk Light Agents: Light Agents sind in der Suite Professional bereits inklusive — sie zahlen keine zusätzliche Lizenz. Bei Rovo hingegen wird jeder User mit Zugriff berechnet, also auch die 100 Light Agents.
+
+
 Zendesk Native AI
 
 ```mermaid
@@ -20,6 +23,15 @@ flowchart TD
     style H fill:#2EA8B5,color:#fff
 ```
 
+KOSTEN1[Suite Professional: 40 x $115 = $4.600/Monat
+        Light Agents: inklusive in Suite Professional
+        Copilot Add-on: 40 x $50 = $2.000/Monat
+        Automated Resolutions: Ø 50/Agent x $2 = $4.000/Monat
+        ─────────────────────────────────────
+        Gesamt/Monat: ~$10.600
+        Gesamt/Jahr:  ~$127.200]
+
+        
 Azure Full Stack
 ```mermaid
 flowchart TD
@@ -46,6 +58,16 @@ flowchart TD
     style L fill:#27AE60,color:#fff
     style PHASE2 fill:#f0f0f0,color:#333
 ```
+KOSTEN2[Einmalig Extraktion 111k Tickets: ~$255
+        Azure AI Search S1: ~$74/Monat
+        Azure OpenAI Inference: ~$30/Monat (hochgerechnet 40 Agenten)
+        Zendesk Suite Professional: 40 x $115 = $4.600/Monat
+        Light Agents: inklusive
+        ─────────────────────────────────────
+        Zendesk-Lizenz/Jahr: ~$55.200
+        Azure-Kosten/Jahr:   ~$1.300
+        Gesamt/Jahr:         ~$56.500]
+
 
 Eigener Server RZ Holland
 ```mermaid
@@ -74,6 +96,20 @@ flowchart TD
     style L fill:#27AE60,color:#fff
     style INFRA fill:#eef5ff,color:#333
 ```
+KOSTEN3[Zendesk Suite Professional: 40 x $115 = $4.600/Monat
+        Light Agents: inklusive
+        ─────────────────────────────────────
+        Hardware 2x RTX 6000 Ada + Server: ~22.000 EUR einmalig
+        Abschreibung 3 Jahre: ~7.000 EUR/Jahr
+        RZ-Hosting Holland: ~4.800 EUR/Jahr
+        Strom: ~2.000 EUR/Jahr
+        ─────────────────────────────────────
+        Zendesk-Lizenz/Jahr:    ~$55.200
+        KI-Infrastruktur Jahr 1: ~13.800 EUR
+        KI-Infrastruktur ab J2:  ~6.800 EUR
+        Gesamt Jahr 1:          ~$70.800
+        Gesamt ab Jahr 2:       ~$63.200]
+
 
 Hetzner GPU-Cloud
 ```mermaid
@@ -102,6 +138,16 @@ flowchart TD
     style L fill:#27AE60,color:#fff
     style HETZNER fill:#fff3e0,color:#333
 ```
+KOSTEN4[Zendesk Suite Professional: 40 x $115 = $4.600/Monat
+        Light Agents: inklusive
+        ─────────────────────────────────────
+        Kein Hardware-Investment
+        Hetzner On-Demand GPU: ~350 EUR/Monat
+        ─────────────────────────────────────
+        Zendesk-Lizenz/Jahr:  ~$55.200
+        Hetzner/Jahr:         ~4.200 EUR
+        Gesamt/Jahr:          ~$59.600]
+
 
 Atlassian Rovo
 ```mermaid
@@ -139,5 +185,41 @@ flowchart TD
     style X fill:#E85858,color:#fff
     style ROVO fill:#f0f0f0,color:#333
     style IMPORT fill:#eef5ff,color:#333
+```
+KOSTEN5[JSM Premium: 140 User x $47/Monat = $6.580/Monat
+        Rovo Add-on: 140 User x $16/Monat = $2.240/Monat
+        ─────────────────────────────────────
+        Gesamt/Monat: ~$8.820
+        Gesamt/Jahr:  ~$105.840
+        ─────────────────────────────────────
+        Credit-Limit Premium: 70 Interaktionen/User/Monat
+        Bei 140 Usern: 9.800 Credits/Monat gesamt
+        Zusaetzliche Credits: separat berechnet]
+
+
+Direktvergleich KI-Infrastruktur (
+```mermaid
+flowchart LR
+    A["Weg 1: Zendesk Native\n$72.000 / Jahr"]
+    B["Weg 2: Azure Full Stack\n$1.300 / Jahr"]
+    C["Weg 3: Eigener Server Jahr 1\n$13.800 / Jahr"]
+    D["Weg 3: Eigener Server ab Jahr 2\n$6.800 / Jahr"]
+    E["Weg 4: Hetzner GPU-Cloud\n$4.200 / Jahr"]
+    F["Weg 5: Rovo / JSM\n$50.640 / Jahr"]
+
+    TITEL["KI-Infrastrukturkosten\nim Vergleich\n(ohne Zendesk-Lizenz)"] --- A
+    TITEL --- B
+    TITEL --- C
+    TITEL --- D
+    TITEL --- E
+    TITEL --- F
+
+    style TITEL fill:#20808D,color:#fff
+    style A fill:#E85858,color:#fff
+    style B fill:#27AE60,color:#fff
+    style C fill:#E8A838,color:#333
+    style D fill:#2EA8B5,color:#fff
+    style E fill:#5C9BD6,color:#fff
+    style F fill:#D95E00,color:#fff
 ```
 
