@@ -23,13 +23,21 @@ flowchart TD
     style H fill:#2EA8B5,color:#fff
 ```
 
-KOSTEN1[Suite Professional: 40 x $115 = $4.600/Monat
-        Light Agents: inklusive in Suite Professional
-        Copilot Add-on: 40 x $50 = $2.000/Monat
-        Automated Resolutions: Ø 50/Agent x $2 = $4.000/Monat
-        ─────────────────────────────────────
-        Gesamt/Monat: ~$10.600
-        Gesamt/Jahr:  ~$127.200]
+```mermaid
+block-beta
+    columns 2
+    A["Suite Professional"]:1 B["40 x $115 = $4.600/Monat"]:1
+    C["Copilot Add-on"]:1 D["40 x $50 = $2.000/Monat"]:1
+    E["Automated Resolutions"]:1 F["Oe 50/Agent x $2 = $4.000/Monat"]:1
+    G["Light Agents"]:1 H["inklusive"]:1
+    I["Gesamt/Monat"]:1 J["~$10.600"]:1
+    K["Gesamt/Jahr"]:1 L["~$127.200"]:1
+
+    style I fill:#20808D,color:#fff
+    style J fill:#20808D,color:#fff
+    style K fill:#E85858,color:#fff
+    style L fill:#E85858,color:#fff
+```
 
         
 Azure Full Stack
@@ -58,15 +66,21 @@ flowchart TD
     style L fill:#27AE60,color:#fff
     style PHASE2 fill:#f0f0f0,color:#333
 ```
-KOSTEN2[Einmalig Extraktion 111k Tickets: ~$255
-        Azure AI Search S1: ~$74/Monat
-        Azure OpenAI Inference: ~$30/Monat (hochgerechnet 40 Agenten)
-        Zendesk Suite Professional: 40 x $115 = $4.600/Monat
-        Light Agents: inklusive
-        ─────────────────────────────────────
-        Zendesk-Lizenz/Jahr: ~$55.200
-        Azure-Kosten/Jahr:   ~$1.300
-        Gesamt/Jahr:         ~$56.500]
+```mermaid
+block-beta
+    columns 2
+    A["Extraktion 111k Tickets"]:1 B["~$255 einmalig"]:1
+    C["Azure AI Search S1"]:1 D["~$74/Monat"]:1
+    E["Azure OpenAI Inference"]:1 F["~$30/Monat"]:1
+    G["Light Agents"]:1 H["inklusive"]:1
+    I["Azure KI-Kosten/Jahr"]:1 J["~$1.300"]:1
+    K["Gesamt/Jahr inkl. Zendesk"]:1 L["~$56.500"]:1
+
+    style I fill:#20808D,color:#fff
+    style J fill:#20808D,color:#fff
+    style K fill:#27AE60,color:#fff
+    style L fill:#27AE60,color:#fff
+```
 
 
 Eigener Server RZ Holland
@@ -96,19 +110,27 @@ flowchart TD
     style L fill:#27AE60,color:#fff
     style INFRA fill:#eef5ff,color:#333
 ```
-KOSTEN3[Zendesk Suite Professional: 40 x $115 = $4.600/Monat
-        Light Agents: inklusive
-        ─────────────────────────────────────
-        Hardware 2x RTX 6000 Ada + Server: ~22.000 EUR einmalig
-        Abschreibung 3 Jahre: ~7.000 EUR/Jahr
-        RZ-Hosting Holland: ~4.800 EUR/Jahr
-        Strom: ~2.000 EUR/Jahr
-        ─────────────────────────────────────
-        Zendesk-Lizenz/Jahr:    ~$55.200
-        KI-Infrastruktur Jahr 1: ~13.800 EUR
-        KI-Infrastruktur ab J2:  ~6.800 EUR
-        Gesamt Jahr 1:          ~$70.800
-        Gesamt ab Jahr 2:       ~$63.200]
+```mermaid
+block-beta
+    columns 2
+    A["Hardware 2x RTX 6000 Ada + Server"]:1 B["~22.000 EUR einmalig"]:1
+    C["Abschreibung 3 Jahre"]:1 D["~7.000 EUR/Jahr"]:1
+    E["RZ-Hosting Holland"]:1 F["~4.800 EUR/Jahr"]:1
+    G["Strom"]:1 H["~2.000 EUR/Jahr"]:1
+    I["KI-Infrastruktur Jahr 1"]:1 J["~13.800 EUR"]:1
+    K["KI-Infrastruktur ab Jahr 2"]:1 L["~6.800 EUR"]:1
+    M["Gesamt Jahr 1 inkl. Zendesk"]:1 N["~$70.800"]:1
+    O["Gesamt ab Jahr 2 inkl. Zendesk"]:1 P["~$63.200"]:1
+
+    style I fill:#E8A838,color:#333
+    style J fill:#E8A838,color:#333
+    style K fill:#20808D,color:#fff
+    style L fill:#20808D,color:#fff
+    style M fill:#E85858,color:#fff
+    style N fill:#E85858,color:#fff
+    style O fill:#27AE60,color:#fff
+    style P fill:#27AE60,color:#fff
+```
 
 
 Hetzner GPU-Cloud
@@ -138,15 +160,21 @@ flowchart TD
     style L fill:#27AE60,color:#fff
     style HETZNER fill:#fff3e0,color:#333
 ```
-KOSTEN4[Zendesk Suite Professional: 40 x $115 = $4.600/Monat
-        Light Agents: inklusive
-        ─────────────────────────────────────
-        Kein Hardware-Investment
-        Hetzner On-Demand GPU: ~350 EUR/Monat
-        ─────────────────────────────────────
-        Zendesk-Lizenz/Jahr:  ~$55.200
-        Hetzner/Jahr:         ~4.200 EUR
-        Gesamt/Jahr:          ~$59.600]
+```mermaid
+block-beta
+    columns 2
+    A["Hardware-Investment"]:1 B["keines"]:1
+    C["Hetzner On-Demand GPU"]:1 D["~350 EUR/Monat"]:1
+    E["Hetzner Dauerbetrieb GEX130"]:1 F["~1.094 EUR/Monat"]:1
+    G["Hetzner Buerozeiten GEX44"]:1 H["~102 EUR/Monat"]:1
+    I["KI-Infrastruktur/Jahr On-Demand"]:1 J["~4.200 EUR"]:1
+    K["Gesamt/Jahr inkl. Zendesk"]:1 L["~$59.600"]:1
+
+    style I fill:#20808D,color:#fff
+    style J fill:#20808D,color:#fff
+    style K fill:#27AE60,color:#fff
+    style L fill:#27AE60,color:#fff
+```
 
 
 Atlassian Rovo
@@ -186,15 +214,24 @@ flowchart TD
     style ROVO fill:#f0f0f0,color:#333
     style IMPORT fill:#eef5ff,color:#333
 ```
-KOSTEN5[JSM Premium: 140 User x $47/Monat = $6.580/Monat
-        Rovo Add-on: 140 User x $16/Monat = $2.240/Monat
-        ─────────────────────────────────────
-        Gesamt/Monat: ~$8.820
-        Gesamt/Jahr:  ~$105.840
-        ─────────────────────────────────────
-        Credit-Limit Premium: 70 Interaktionen/User/Monat
-        Bei 140 Usern: 9.800 Credits/Monat gesamt
-        Zusaetzliche Credits: separat berechnet]
+```mermaid
+block-beta
+    columns 2
+    A["JSM Premium"]:1 B["140 User x $47 = $6.580/Monat"]:1
+    C["Rovo Add-on"]:1 D["140 User x $16 = $2.240/Monat"]:1
+    E["Gesamt/Monat"]:1 F["~$8.820"]:1
+    G["Gesamt/Jahr"]:1 H["~$105.840"]:1
+    I["Credit-Limit Premium"]:1 J["70 Interaktionen/User/Monat"]:1
+    K["Credits gesamt 140 User"]:1 L["9.800 Credits/Monat"]:1
+    M["Zusaetzliche Credits"]:1 N["separat berechnet"]:1
+
+    style E fill:#E8A838,color:#333
+    style F fill:#E8A838,color:#333
+    style G fill:#E85858,color:#fff
+    style H fill:#E85858,color:#fff
+    style M fill:#E85858,color:#fff
+    style N fill:#E85858,color:#fff
+```
 
 
 Direktvergleich KI-Infrastruktur (
