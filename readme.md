@@ -10,7 +10,7 @@ flowchart TD
     C -->|Ja| D[AI Agent antwortet<br>automatisch]
     C -->|Nein| E[Ticket wird<br>Agent zugewiesen]
     D --> F{Kunde zufrieden?<br>72h kein Reply}
-    F -->|Ja| G[Automated Resolution<br>$2 verrechnet]
+    F -->|Ja| G[Automated Resolution<br>€2 verrechnet]
     F -->|Nein / Eskalation| E
     E --> H[Agent sieht Ticket<br>+ Copilot-Vorschlaege]
     H --> I[Agent antwortet manuell]
@@ -26,12 +26,12 @@ flowchart TD
 ```mermaid
 block-beta
     columns 2
-    A["Suite Professional"]:1 B["40 x $115 = $4.600/Monat"]:1
-    C["Copilot Add-on"]:1 D["40 x $50 = $2.000/Monat"]:1
-    E["Automated Resolutions"]:1 F["Oe 50/Agent x $2 = $4.000/Monat"]:1
+    A["Suite Professional"]:1 B["40 x €115 = €4.600/Monat"]:1
+    C["Copilot Add-on"]:1 D["40 x €50 = €2.000/Monat"]:1
+    E["Automated Resolutions"]:1 F["je 50/Agent x €2 = €4.000/Monat"]:1
     G["Light Agents"]:1 H["inklusive"]:1
-    I["Gesamt/Monat"]:1 J["~$10.600"]:1
-    K["Gesamt/Jahr"]:1 L["~$127.200"]:1
+    I["Gesamt/Monat"]:1 J["~€10.600"]:1
+    K["Gesamt/Jahr"]:1 L["~€127.200"]:1
 
     style I fill:#20808D,color:#fff
     style J fill:#20808D,color:#fff
@@ -69,12 +69,12 @@ flowchart TD
 ```mermaid
 block-beta
     columns 2
-    A["Extraktion 111k Tickets"]:1 B["~$255 einmalig"]:1
-    C["Azure AI Search S1"]:1 D["~$74/Monat"]:1
-    E["Azure OpenAI Inference"]:1 F["~$30/Monat"]:1
+    A["Extraktion 111k Tickets"]:1 B["~€255 einmalig"]:1
+    C["Azure AI Search S1"]:1 D["~€74/Monat"]:1
+    E["Azure OpenAI Inference"]:1 F["~€30/Monat"]:1
     G["Light Agents"]:1 H["inklusive"]:1
-    I["Azure KI-Kosten/Jahr"]:1 J["~$1.300"]:1
-    K["Gesamt/Jahr inkl. Zendesk"]:1 L["~$56.500"]:1
+    I["Azure KI-Kosten/Jahr"]:1 J["~€1.300"]:1
+    K["Gesamt/Jahr inkl. Zendesk"]:1 L["~€56.500"]:1
 
     style I fill:#20808D,color:#fff
     style J fill:#20808D,color:#fff
@@ -119,8 +119,8 @@ block-beta
     G["Strom"]:1 H["~2.000 EUR/Jahr"]:1
     I["KI-Infrastruktur Jahr 1"]:1 J["~13.800 EUR"]:1
     K["KI-Infrastruktur ab Jahr 2"]:1 L["~6.800 EUR"]:1
-    M["Gesamt Jahr 1 inkl. Zendesk"]:1 N["~$70.800"]:1
-    O["Gesamt ab Jahr 2 inkl. Zendesk"]:1 P["~$63.200"]:1
+    M["Gesamt Jahr 1 inkl. Zendesk"]:1 N["~€70.800"]:1
+    O["Gesamt ab Jahr 2 inkl. Zendesk"]:1 P["~€63.200"]:1
 
     style I fill:#E8A838,color:#333
     style J fill:#E8A838,color:#333
@@ -168,7 +168,7 @@ block-beta
     E["Hetzner Dauerbetrieb GEX130"]:1 F["~1.094 EUR/Monat"]:1
     G["Hetzner Buerozeiten GEX44"]:1 H["~102 EUR/Monat"]:1
     I["KI-Infrastruktur/Jahr On-Demand"]:1 J["~4.200 EUR"]:1
-    K["Gesamt/Jahr inkl. Zendesk"]:1 L["~$59.600"]:1
+    K["Gesamt/Jahr inkl. Zendesk"]:1 L["~€59.600"]:1
 
     style I fill:#20808D,color:#fff
     style J fill:#20808D,color:#fff
@@ -217,10 +217,10 @@ flowchart TD
 ```mermaid
 block-beta
     columns 2
-    A["JSM Premium"]:1 B["140 User x $47 = $6.580/Monat"]:1
-    C["Rovo Add-on"]:1 D["140 User x $16 = $2.240/Monat"]:1
-    E["Gesamt/Monat"]:1 F["~$8.820"]:1
-    G["Gesamt/Jahr"]:1 H["~$105.840"]:1
+    A["JSM Premium"]:1 B["140 User x €47 = €6.580/Monat"]:1
+    C["Rovo Add-on"]:1 D["140 User x €16 = €2.240/Monat"]:1
+    E["Gesamt/Monat"]:1 F["~€8.820"]:1
+    G["Gesamt/Jahr"]:1 H["~€105.840"]:1
     I["Credit-Limit Premium"]:1 J["70 Interaktionen/User/Monat"]:1
     K["Credits gesamt 140 User"]:1 L["9.800 Credits/Monat"]:1
     M["Zusaetzliche Credits"]:1 N["separat berechnet"]:1
