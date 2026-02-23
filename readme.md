@@ -96,7 +96,7 @@ flowchart TD
     style AZURE fill:#f0f4ff,color:#333
     style WISSEN fill:#f9f0d0,color:#333
 ```
----
+
 ```mermaid
 block-beta
     columns 2
@@ -117,7 +117,7 @@ block-beta
     style Q fill:#20808D,color:#fff
     style R fill:#20808D,color:#fff
 ```
-
+---
 ## Weg 2 — Azure Full Stack
 
 > **Empfehlung:** **Beste Option fuer den Einstieg.** Infrastruktur ist bereits vorhanden, Extraktion laeuft, minimales Hardware-Risiko. Ideal fuer die ersten 6-12 Monate bis die Qualitaet validiert ist.
