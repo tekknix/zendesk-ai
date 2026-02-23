@@ -1,3 +1,5 @@
+Zendesk Native AI
+
 ```mermaid
 flowchart TD
     A([Ticket eingeht]) --> B[Zendesk Intelligent Triage<br>Klassifizierung + Routing]
@@ -17,6 +19,8 @@ flowchart TD
     style D fill:#2EA8B5,color:#fff
     style H fill:#2EA8B5,color:#fff
 ```
+
+Azure Full Stack
 ```mermaid
 flowchart TD
     A([Ticket eingeht in Zendesk]) --> B[Zendesk empfaengt Ticket]
@@ -42,6 +46,8 @@ flowchart TD
     style L fill:#27AE60,color:#fff
     style PHASE2 fill:#f0f0f0,color:#333
 ```
+
+Eigener Server RZ Holland
 ```mermaid
 flowchart TD
     A([Ticket eingeht in Zendesk]) --> B[Zendesk empfaengt Ticket]
@@ -68,6 +74,8 @@ flowchart TD
     style L fill:#27AE60,color:#fff
     style INFRA fill:#eef5ff,color:#333
 ```
+
+Hetzner GPU-Cloud
 ```mermaid
 flowchart TD
     A([Ticket eingeht in Zendesk]) --> B[Zendesk empfaengt Ticket]
@@ -94,6 +102,8 @@ flowchart TD
     style L fill:#27AE60,color:#fff
     style HETZNER fill:#fff3e0,color:#333
 ```
+
+Atlassian Rovo
 ```mermaid
 flowchart TD
     A([Ticket eingeht in Zendesk]) --> B{Zendesk nach Jira<br>Sync aktiv?}
