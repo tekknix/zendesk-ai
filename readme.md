@@ -106,14 +106,14 @@ flowchart TD
 Atlassian Rovo
 ```mermaid
 flowchart TD
-    A([Ticket eingeht in Zendesk]) --> B[Zendesk empfaengt Ticket]
-    B --> C[Zendesk App<br>Agent oeffnet Ticket]
-    C --> D[Zendesk App fragt<br>Rovo API an]
-    D -->|HTTPS API| E[Rovo durchsucht<br>importierten Ticket-Index]
+    A([Ticket eingeht]) --> B[Jira Service Management<br>empfaengt Ticket]
+    B --> C[Agent oeffnet Ticket<br>in Jira]
+    C --> D[Rovo Chat<br>im Jira-Panel]
+    D --> E[Rovo durchsucht<br>Ticket-Index]
     E --> F[Rovo durchsucht<br>Jira + Confluence Index]
     F --> G{Passende Loesung<br>gefunden?}
-    G -->|Ja| H[Rovo-Vorschlag<br>im Zendesk App-Panel]
-    G -->|Nein| X[Keine Antwort<br>oder Halluzination]
+    G -->|Ja| H[Rovo-Vorschlag<br>im Jira-Panel]
+    G -->|Nein| X([Keine Antwort<br>oder Halluzination])
     H -->|Gut genug| I[Agent uebernimmt<br>und sendet an Kunde]
     H -->|Anpassen| K[Agent editiert<br>und sendet]
     X --> J[Agent bearbeitet<br>manuell]
@@ -127,8 +127,8 @@ flowchart TD
         G
     end
 
-    subgraph IMPORT [Einmalig: Datengrundlage]
-        Z1[111k Zendesk-Tickets<br>importiert] --> E
+    subgraph IMPORT [Datengrundlage - einmalig importiert]
+        Z1[Importierte Zendesk-Tickets<br>als Wissensbasis] --> E
         Z2[Jira-Tickets +<br>Confluence-Artikel] --> F
     end
 
@@ -140,3 +140,4 @@ flowchart TD
     style ROVO fill:#f0f0f0,color:#333
     style IMPORT fill:#eef5ff,color:#333
 ```
+
