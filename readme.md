@@ -11,23 +11,29 @@
 
 ```mermaid
 flowchart TD
-    A([Ticket eingeht]) --> B[Intelligent Triage<br>Klassifizierung + Routing]
-    B --> C{Help Center<br>Artikel vorhanden?}
-    C -->|Ja| D[AI Agent antwortet<br>automatisch]
-    C -->|Nein| E[Ticket wird<br>Agent zugewiesen]
-    D --> F{Kunde zufrieden?<br>72h kein Reply}
-    F -->|Ja| G[Automated Resolution<br>1.70 EUR pro Ticket]
-    F -->|Nein / Eskalation| E
-    E --> H[Agent sieht Ticket<br>+ Copilot-Vorschlag]
-    H --> I[Agent antwortet manuell]
-    I --> J([Ticket geloest])
+    A([Ticket eingeht]) --> B[Zendesk empfaengt Ticket]
+    B --> C[Zendesk App<br>Agent oeffnet Ticket]
+    C -->|App-Aufruf| D[Ticket-Text an<br>Azure OpenAI API]
+    D -->|HTTPS| E[Azure AI Search<br>Suche in 111k Tickets]
+    E --> F[Top-3 aehnliche<br>Loesungen gefunden]
+    F --> G[Azure OpenAI<br>Antwortvorschlag]
+    G --> H[Vorschlag im<br>App-Panel]
+    H -->|Gut genug| I[Agent sendet<br>an Kunde]
+    H -->|Anpassen| K[Agent editiert<br>und sendet]
+    I --> L([Ticket geloest])
+    K --> L
+
+    B -.->|Spaeter automatisch| M[Ticket analysiert<br>bei Eingang]
+    M --> N[Vorschlag als<br>interner Kommentar]
 
     style A fill:#20808D,color:#fff
-    style G fill:#E8A838,color:#fff
-    style J fill:#27AE60,color:#fff
-    style D fill:#2EA8B5,color:#fff
-    style H fill:#2EA8B5,color:#fff
+    style C fill:#E8A838,color:#333
+    style H fill:#E8A838,color:#333
+    style L fill:#27AE60,color:#fff
+    style M fill:#f0f0f0,color:#333
+    style N fill:#f0f0f0,color:#333
 ```
+
 
 ```mermaid
 block-beta
