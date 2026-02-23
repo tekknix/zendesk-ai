@@ -11,7 +11,7 @@
 
 ```mermaid
 flowchart TD
-    A([Ticket eingeht]) --> B[Intelligent Triage<br>Klassifizierung + Routing]
+    A([Ticket geht ein]) --> B[Intelligent Triage<br>Klassifizierung + Routing]
     B --> C{Help Center<br>Artikel vorhanden?}
     C -->|Ja| D[AI Agent antwortet<br>automatisch]
     C -->|Nein| E[Ticket wird<br>Agent zugewiesen]
@@ -53,7 +53,7 @@ block-beta
 
 ```mermaid
 flowchart TD
-    A([Ticket eingeht]) --> B[Zendesk empfaengt Ticket]
+    A([Ticket geht ein]) --> B[Zendesk empfaengt Ticket]
     B -->|Webhook| C[Flask-Server RZ Holland<br>erstellt User + Konversation]
     C -->|DialoX API| D[DialoX Routing-Layer]
     D -->|Azure OpenAI API| E[LLM-Inference<br>auf Artikel-Kontext]
@@ -119,7 +119,7 @@ block-beta
 
 ```mermaid
 flowchart TD
-    A([Ticket eingeht]) --> B[Zendesk empfaengt Ticket]
+    A([Ticket geht ein]) --> B[Zendesk empfaengt Ticket]
     B --> C[Zendesk App<br>Agent oeffnet Ticket]
     C -->|App-Aufruf| D[Ticket-Text an<br>Azure OpenAI API]
     D -->|HTTPS| E[Azure AI Search<br>Suche in 111k Tickets]
@@ -167,7 +167,7 @@ block-beta
 
 ```mermaid
 flowchart TD
-    A([Ticket eingeht]) --> B[Zendesk empfaengt Ticket]
+    A([Ticket geht ein]) --> B[Zendesk empfaengt Ticket]
     B --> C[Zendesk App<br>Agent oeffnet Ticket]
     C -->|App-Aufruf| D[Ticket-Text<br>via HTTPS API]
     D -->|intern| E[RZ Holland<br>Qdrant Vektorsuche]
@@ -222,7 +222,7 @@ block-beta
 
 ```mermaid
 flowchart TD
-    A([Ticket eingeht]) --> B[Zendesk empfaengt Ticket]
+    A([Ticket geht ein]) --> B[Zendesk empfaengt Ticket]
     B --> C[Zendesk App<br>Agent oeffnet Ticket]
     C -->|App-Aufruf| D[Ticket-Text<br>via HTTPS API]
     D -->|HTTPS| E[Hetzner GPU-Cloud DE<br>Qdrant Vektorsuche]
@@ -271,7 +271,7 @@ block-beta
 
 ```mermaid
 flowchart TD
-    A([Ticket eingeht]) --> B[JSM empfaengt Ticket]
+    A([Ticket geht ein]) --> B[JSM empfaengt Ticket]
     B --> C[Agent oeffnet Ticket<br>in Jira]
     C --> D[Rovo Chat<br>im Jira-Panel]
     D --> E[Rovo durchsucht<br>Ticket-Index]
