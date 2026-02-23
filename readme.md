@@ -199,10 +199,22 @@ KOSTEN5[JSM Premium: 140 User x $47/Monat = $6.580/Monat
 
 Direktvergleich KI-Infrastruktur (
 ```mermaid
-xychart-beta
-    title "KI-Infrastrukturkosten pro Jahr (ohne Zendesk-Lizenz)"
-    x-axis ["Weg 1 Zendesk", "Weg 2 Azure", "Weg 3 Server J1", "Weg 3 Server J2+", "Weg 4 Hetzner", "Weg 5 Rovo"]
-    y-axis "USD pro Jahr" 0 --> 80000
-    bar 
+flowchart TD
+    T["KI-Infrastrukturkosten pro Jahr<br>ohne Zendesk-Lizenz"]
+    T --> A["Weg 1: Zendesk Native AI<br>$72.000 / Jahr"]
+    T --> B["Weg 2: Azure Full Stack<br>$1.300 / Jahr"]
+    T --> C["Weg 3: Eigener Server Jahr 1<br>$13.800 / Jahr"]
+    T --> D["Weg 3: Eigener Server ab Jahr 2<br>$6.800 / Jahr"]
+    T --> E["Weg 4: Hetzner GPU-Cloud<br>$4.200 / Jahr"]
+    T --> F["Weg 5: Rovo / JSM<br>$50.640 / Jahr"]
+
+    style T fill:#20808D,color:#fff
+    style A fill:#E85858,color:#fff
+    style B fill:#27AE60,color:#fff
+    style C fill:#E8A838,color:#333
+    style D fill:#2EA8B5,color:#fff
+    style E fill:#5C9BD6,color:#fff
+    style F fill:#D95E00,color:#fff
 ```
+
 
