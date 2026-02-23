@@ -38,12 +38,12 @@ flowchart TD
 ```mermaid
 block-beta
     columns 2
-    A["Suite Professional"]:1 B["40 x 97 EUR = 3.880 EUR/Mon"]:1
-    C["Copilot Add-on"]:1 D["40 x 42 EUR = 1.695 EUR/Mon"]:1
-    E["Automated Resolutions"]:1 F["50/Agent x 1.70 EUR = 3.390 EUR/Mon"]:1
+    A["Suite Professional"]:1 B["40 x 115 EUR = 4600 EUR/Mon"]:1
+    C["Copilot Add-on"]:1 D["40 x 50 EUR = 2000 EUR/Mon"]:1
+    E["Automated Resolutions"]:1 F["50/Agent x 2 EUR = 3.390 EUR/Mon"]:1
     G["Light Agents"]:1 H["inklusive"]:1
-    I["Gesamt pro Monat"]:1 J["ca. 8.965 EUR"]:1
-    K["Gesamt pro Jahr"]:1 L["ca. 107.580 EUR"]:1
+    I["Gesamt pro Monat"]:1 J["ca. 10.600 EUR"]:1
+    K["Gesamt pro Jahr"]:1 L["ca. 127.200 EUR"]:1
 
     style I fill:#20808D,color:#fff
     style J fill:#20808D,color:#fff
@@ -86,12 +86,12 @@ flowchart TD
 ```mermaid
 block-beta
     columns 2
-    A["Extraktion 111k Tickets"]:1 B["216 EUR einmalig"]:1
-    C["Azure AI Search S1"]:1 D["63 EUR/Monat"]:1
-    E["Azure OpenAI Inference"]:1 F["25 EUR/Monat"]:1
+    A["Extraktion 111k Tickets"]:1 B["255 EUR einmalig"]:1
+    C["Azure AI Search S1"]:1 D["74 EUR/Monat"]:1
+    E["Azure OpenAI Inference"]:1 F["30 EUR/Monat"]:1
     G["Light Agents"]:1 H["inklusive"]:1
-    I["KI-Kosten pro Jahr"]:1 J["ca. 1.100 EUR"]:1
-    K["Gesamt pro Jahr inkl. Zendesk"]:1 L["ca. 47.900 EUR"]:1
+    I["KI-Kosten pro Jahr"]:1 J["ca. 1.300 EUR"]:1
+    K["Gesamt pro Jahr inkl. Zendesk"]:1 L["ca. 56.500 EUR"]:1
 
     style I fill:#20808D,color:#fff
     style J fill:#20808D,color:#fff
@@ -141,8 +141,8 @@ block-beta
     G["Strom ca. 2kW"]:1 H["2.000 EUR/Jahr"]:1
     I["KI-Infrastruktur Jahr 1"]:1 J["13.800 EUR"]:1
     K["KI-Infrastruktur ab Jahr 2"]:1 L["6.800 EUR"]:1
-    M["Gesamt Jahr 1 inkl. Zendesk"]:1 N["ca. 60.500 EUR"]:1
-    O["Gesamt ab Jahr 2 inkl. Zendesk"]:1 P["ca. 53.500 EUR"]:1
+    M["Gesamt Jahr 1 inkl. Zendesk"]:1 N["ca. 69.200 EUR"]:1
+    O["Gesamt ab Jahr 2 inkl. Zendesk"]:1 P["ca. 62.200 EUR"]:1
 
     style I fill:#E8A838,color:#333
     style J fill:#E8A838,color:#333
@@ -191,11 +191,11 @@ flowchart TD
 block-beta
     columns 2
     A["Hardware-Investment"]:1 B["keines"]:1
-    C["On-Demand GPU"]:1 D["ca. 300 EUR/Monat"]:1
-    E["Dauerbetrieb GEX130"]:1 F["ca. 927 EUR/Monat"]:1
-    G["Buerozeiten GEX44"]:1 H["ca. 86 EUR/Monat"]:1
-    I["KI-Infrastruktur On-Demand/Jahr"]:1 J["ca. 3.600 EUR"]:1
-    K["Gesamt pro Jahr inkl. Zendesk"]:1 L["ca. 50.300 EUR"]:1
+    C["On-Demand GPU"]:1 D["ca. 350 EUR/Monat"]:1
+    E["Dauerbetrieb GEX130"]:1 F["ca. 1094 EUR/Monat"]:1
+    G["Buerozeiten GEX44"]:1 H["ca. 102 EUR/Monat"]:1
+    I["KI-Infrastruktur On-Demand/Jahr"]:1 J["ca. 4.200 EUR"]:1
+    K["Gesamt pro Jahr inkl. Zendesk"]:1 L["ca. 59.600 EUR"]:1
 
     style I fill:#20808D,color:#fff
     style J fill:#20808D,color:#fff
