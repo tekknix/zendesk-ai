@@ -1,5 +1,7 @@
 Wichtige Vorabbemerkung zu Zendesk Light Agents: Light Agents sind in der Suite Professional bereits inklusive — sie zahlen keine zusätzliche Lizenz. Bei Rovo hingegen wird jeder User mit Zugriff berechnet, also auch die 100 Light Agents.
 
+Rovo: KI-Abfragen beziehen sich auf das, auf was der entsprechende Agent Zugriff hat. Kein Zugriff auf Tickets ausserhalb seines Zugriffsbereiches werden nicht von Rovo beachtet.
+
 
 Zendesk Native AI
 
@@ -234,7 +236,7 @@ block-beta
 ```
 
 
-Direktvergleich KI-Infrastruktur (
+Direktvergleich KI-Infrastruktur 
 ```mermaid
 xychart-beta
     title "KI-Infrastrukturkosten pro Jahr ohne Zendesk-Lizenz"
