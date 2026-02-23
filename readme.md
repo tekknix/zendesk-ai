@@ -1,3 +1,4 @@
+```mermaid
 flowchart TD
     A([Ticket eingeht]) --> B[Zendesk Intelligent Triage<br>Klassifizierung + Routing]
     B --> C{Help Center<br>Artikel vorhanden?}
@@ -15,3 +16,4 @@ flowchart TD
     style J fill:#27AE60,color:#fff
     style D fill:#2EA8B5,color:#fff
     style H fill:#2EA8B5,color:#fff
+```
