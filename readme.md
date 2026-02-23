@@ -52,6 +52,71 @@ block-beta
 ```
 
 ---
+## Weg 1b — DialoX via Flask-Server (RZ Holland)
+
+> **Empfehlung:** Guter Zwischenschritt als schneller Proof-of-Concept, da Webhook-Integration bereits vorhanden ist. Kein RAG bedeutet jedoch: Bei steigender Ticket-Menge sinkt die Antwortqualitaet, da kein semantisches Retrieval stattfindet. Geeignet fuer Help-Center-Artikel als Wissensbasis. Fuer historische Tickets nur mit Limit sinnvoll. Mittelfristig durch Weg 2 oder 4 ersetzen.
+
+```mermaid
+flowchart TD
+    A([Ticket eingeht]) --> B[Zendesk empfaengt Ticket]
+    B -->|Webhook| C[Flask-Server RZ Holland<br>erstellt User + Konversation]
+    C -->|DialoX API| D[DialoX Routing-Layer]
+    D -->|Azure OpenAI API| E[LLM-Inference<br>auf Artikel-Kontext]
+    E --> F{Antwort<br>gefunden?}
+    F -->|Ja| G[Antwortvorschlag<br>via Webhook zurueck]
+    F -->|Nein / Unsicher| H[Ticket wird<br>Agent zugewiesen]
+    G --> I[Vorschlag im<br>Zendesk App-Panel]
+    I -->|Gut genug| J[Agent sendet<br>an Kunde]
+    I -->|Anpassen| K[Agent editiert<br>und sendet]
+    H --> L[Agent bearbeitet<br>manuell]
+    J --> M([Ticket geloest])
+    K --> M
+    L --> M
+
+    subgraph RZ [RZ Holland - bestehende Infrastruktur]
+        C
+    end
+
+    subgraph AZURE [Azure - bestehende Instanz]
+        D
+        E
+    end
+
+    subgraph WISSEN [Wissensbasis - kein RAG]
+        Z1[Help Center Artikel<br>als Prompt-Kontext] --> E
+        Z2[Tickets optional<br>begrenzte Anzahl] --> E
+    end
+
+    style A fill:#20808D,color:#fff
+    style C fill:#E8A838,color:#333
+    style I fill:#E8A838,color:#333
+    style M fill:#27AE60,color:#fff
+    style H fill:#E85858,color:#fff
+    style RZ fill:#eef5ff,color:#333
+    style AZURE fill:#f0f4ff,color:#333
+    style WISSEN fill:#f9f0d0,color:#333
+```
+---
+```mermaid
+block-beta
+    columns 2
+    A["Flask-Server RZ Holland"]:1 B["bereits vorhanden"]:1
+    C["DialoX Lizenz"]:1 D["bestehender Vertrag"]:1
+    E["Azure OpenAI Inference"]:1 F["bestehende Instanz"]:1
+    G["Zusaetzliche Infrastruktur"]:1 H["keine"]:1
+    I["Einrichtungsaufwand"]:1 J["gering - Webhook vorhanden"]:1
+    K["RAG / Vektorsuche"]:1 L["nicht vorhanden"]:1
+    M["Wissensbasis"]:1 N["Artikel + opt. Tickets als Kontext"]:1
+    O["Zusatzkosten pro Monat"]:1 P["nur Azure Inference ~25 EUR"]:1
+    Q["Gesamt pro Jahr inkl. Zendesk"]:1 R["ca. 55.500 EUR"]:1
+
+    style I fill:#27AE60,color:#fff
+    style J fill:#27AE60,color:#fff
+    style K fill:#E85858,color:#fff
+    style L fill:#E85858,color:#fff
+    style Q fill:#20808D,color:#fff
+    style R fill:#20808D,color:#fff
+```
 
 ## Weg 2 — Azure Full Stack
 
