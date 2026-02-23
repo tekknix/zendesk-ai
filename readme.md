@@ -106,20 +106,37 @@ flowchart TD
 Atlassian Rovo
 ```mermaid
 flowchart TD
-    A([Ticket eingeht in Zendesk]) --> B{Zendesk nach Jira<br>Sync aktiv?}
-    B -->|Nein| Z([Rovo hat keinen Zugriff])
-    B -->|Ja| C[Ticket wird nach<br>Jira Service Management gespiegelt]
-    C --> D[Rovo indiziert Ticket<br>in Atlassian-Vektorindex]
-    D --> E[Agent oeffnet Ticket<br>in Jira + Rovo Chat]
-    E --> F[Rovo sucht in<br>Jira + Confluence Index]
-    F -->|Treffer| G[Rovo-Vorschlag<br>im Jira-Panel]
-    F -->|Kein Treffer| X([Keine Antwort<br>oder Halluzination])
-    G --> H[Agent kopiert Loesung<br>zurueck nach Zendesk]
-    H --> L([Ticket geloest - Doppel-Workflow])
+    A([Ticket eingeht in Zendesk]) --> B[Zendesk empfaengt Ticket]
+    B --> C[Zendesk App<br>Agent oeffnet Ticket]
+    C --> D[Zendesk App fragt<br>Rovo API an]
+    D -->|HTTPS API| E[Rovo durchsucht<br>importierten Ticket-Index]
+    E --> F[Rovo durchsucht<br>Jira + Confluence Index]
+    F --> G{Passende Loesung<br>gefunden?}
+    G -->|Ja| H[Rovo-Vorschlag<br>im Zendesk App-Panel]
+    G -->|Nein| X[Keine Antwort<br>oder Halluzination]
+    H -->|Gut genug| I[Agent uebernimmt<br>und sendet an Kunde]
+    H -->|Anpassen| K[Agent editiert<br>und sendet]
+    X --> J[Agent bearbeitet<br>manuell]
+    I --> L([Ticket geloest])
+    K --> L
+    J --> L
+
+    subgraph ROVO [Atlassian Rovo - Cloud]
+        E
+        F
+        G
+    end
+
+    subgraph IMPORT [Einmalig: Datengrundlage]
+        Z1[111k Zendesk-Tickets<br>importiert] --> E
+        Z2[Jira-Tickets +<br>Confluence-Artikel] --> F
+    end
 
     style A fill:#20808D,color:#fff
-    style Z fill:#E85858,color:#fff
+    style C fill:#E8A838,color:#333
+    style H fill:#E8A838,color:#333
+    style L fill:#27AE60,color:#fff
     style X fill:#E85858,color:#fff
-    style L fill:#E8A838,color:#333
-    style B fill:#f0f0f0,color:#333
+    style ROVO fill:#f0f0f0,color:#333
+    style IMPORT fill:#eef5ff,color:#333
 ```
