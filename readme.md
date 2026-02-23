@@ -274,5 +274,15 @@ xychart-beta
     title "KI-Infrastrukturkosten pro Jahr ohne Zendesk-Lizenz (EUR)"
     x-axis ["W1 Zendesk", "W2 Azure", "W3 Jahr 1", "W3 ab Jahr 2", "W4 Hetzner", "W5 Rovo"]
     y-axis "EUR pro Jahr" 0 --> 80000
-    bar [72000, 1300, 13800, 6800, 4200, 50640]
+    bar [72000, 1300, 14800, 7000, 4400, 50640]
 ```
+
+## Direktvergleich Gesamtkosten inkl. Zendesk / Jira-Lizenzen
+```mermaid
+xychart-beta
+    title "KI-Infrastrukturkosten pro Jahr ohne Zendesk-Lizenz (EUR)"
+    x-axis ["W1 Zendesk", "W2 Azure", "W3 Jahr 1", "W3 ab Jahr 2", "W4 Hetzner", "W5 Rovo"]
+    y-axis "EUR pro Jahr" 0 --> 180000
+    bar [127.200, 56500, 69200, 62200, 59600, 105840]
+```
+
