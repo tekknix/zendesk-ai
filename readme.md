@@ -1,22 +1,24 @@
-Wichtige Vorabbemerkung zu Zendesk Light Agents: Light Agents sind in der Suite Professional bereits inklusive — sie zahlen keine zusätzliche Lizenz. Bei Rovo hingegen wird jeder User mit Zugriff berechnet, also auch die 100 Light Agents.
+# KI-Support-Strategie: Variantenvergleich
 
-Rovo: KI-Abfragen beziehen sich auf das, auf was der entsprechende Agent Zugriff hat. Kein Zugriff auf Tickets ausserhalb seines Zugriffsbereiches werden nicht von Rovo beachtet.
+> **Hinweis Zendesk Light Agents:** Light Agents sind in der Suite Professional bereits inklusive — keine zusätzliche Lizenz.  
+> **Hinweis Rovo:** Jeder User mit Zugriff wird berechnet, also auch alle 100 Light Agents. Rovo-Abfragen sind auf den jeweiligen Zugriffsbereich des Agenten beschränkt — Tickets ausserhalb seines Bereichs werden nicht beruecksichtigt.
 
+---
 
+## Weg 1 — Zendesk Native AI
 
-
-Zendesk Native AI
+> **Empfehlung:** Nur geeignet wenn kein eigenes technisches Know-how vorhanden ist und L1-Tickets dominieren. Fuer L2/L3-lastigen Support wie Enreach/Swyx **nicht empfohlen** — teuerste Option ohne Zugriff auf historische Ticket-Loesungen.
 
 ```mermaid
 flowchart TD
-    A([Ticket eingeht]) --> B[Zendesk Intelligent Triage<br>Klassifizierung + Routing]
+    A([Ticket eingeht]) --> B[Intelligent Triage<br>Klassifizierung + Routing]
     B --> C{Help Center<br>Artikel vorhanden?}
     C -->|Ja| D[AI Agent antwortet<br>automatisch]
     C -->|Nein| E[Ticket wird<br>Agent zugewiesen]
     D --> F{Kunde zufrieden?<br>72h kein Reply}
-    F -->|Ja| G[Automated Resolution<br>2€ verrechnet]
+    F -->|Ja| G[Automated Resolution<br>1.70 EUR pro Ticket]
     F -->|Nein / Eskalation| E
-    E --> H[Agent sieht Ticket<br>+ Copilot-Vorschlaege]
+    E --> H[Agent sieht Ticket<br>+ Copilot-Vorschlag]
     H --> I[Agent antwortet manuell]
     I --> J([Ticket geloest])
 
@@ -30,12 +32,12 @@ flowchart TD
 ```mermaid
 block-beta
     columns 2
-    A["Suite Professional"]:1 B["40 x 115€ = 4.600€/Monat"]:1
-    C["Copilot Add-on"]:1 D["40 x 50€ = 2.000€/Monat"]:1
-    E["Automated Resolutions"]:1 F["je 50€/Agent x €2 = €4.000/Monat"]:1
+    A["Suite Professional"]:1 B["40 x 97 EUR = 3.880 EUR/Mon"]:1
+    C["Copilot Add-on"]:1 D["40 x 42 EUR = 1.695 EUR/Mon"]:1
+    E["Automated Resolutions"]:1 F["50/Agent x 1.70 EUR = 3.390 EUR/Mon"]:1
     G["Light Agents"]:1 H["inklusive"]:1
-    I["Gesamt/Monat"]:1 J["~10600€"]:1
-    K["Gesamt/Jahr"]:1 L["~127200€"]:1
+    I["Gesamt pro Monat"]:1 J["ca. 8.965 EUR"]:1
+    K["Gesamt pro Jahr"]:1 L["ca. 107.580 EUR"]:1
 
     style I fill:#20808D,color:#fff
     style J fill:#20808D,color:#fff
@@ -43,25 +45,29 @@ block-beta
     style L fill:#E85858,color:#fff
 ```
 
-        
-Azure Full Stack
+---
+
+## Weg 2 — Azure Full Stack
+
+> **Empfehlung:** **Beste Option fuer den Einstieg.** Infrastruktur ist bereits vorhanden, Extraktion laeuft, minimales Hardware-Risiko. Ideal fuer die ersten 6-12 Monate bis die Qualitaet validiert ist.
+
 ```mermaid
 flowchart TD
-    A([Ticket eingeht in Zendesk]) --> B[Zendesk empfaengt Ticket]
+    A([Ticket eingeht]) --> B[Zendesk empfaengt Ticket]
     B --> C[Zendesk App<br>Agent oeffnet Ticket]
-    C -->|App-Aufruf| D[App sendet Ticket-Text<br>an Azure OpenAI API]
-    D -->|HTTPS API| E[Azure AI Search<br>Vektor-Suche in 111k Tickets]
+    C -->|App-Aufruf| D[Ticket-Text an<br>Azure OpenAI API]
+    D -->|HTTPS| E[Azure AI Search<br>Suche in 111k Tickets]
     E --> F[Top-3 aehnliche<br>Loesungen gefunden]
-    F --> G[Azure OpenAI<br>generiert Antwortvorschlag]
-    G --> H[Vorschlag im<br>Zendesk App-Panel]
-    H -->|Gut genug| I[Agent uebernimmt<br>und sendet an Kunde]
+    F --> G[Azure OpenAI<br>Antwortvorschlag]
+    G --> H[Vorschlag im<br>App-Panel]
+    H -->|Gut genug| I[Agent sendet<br>an Kunde]
     H -->|Anpassen| K[Agent editiert<br>und sendet]
     I --> L([Ticket geloest])
     K --> L
 
-    subgraph PHASE2 [Spaeter: Automatisch bei Ticket-Eingang]
-        B --> M[Ticket auto-analysiert<br>bei Eingang]
-        M --> N[Loesungsvorschlag als<br>interner Kommentar]
+    subgraph PHASE2 [Spaeter: Automatisch bei Eingang]
+        B --> M[Ticket analysiert<br>bei Eingang]
+        M --> N[Vorschlag als<br>interner Kommentar]
     end
 
     style A fill:#20808D,color:#fff
@@ -70,15 +76,16 @@ flowchart TD
     style L fill:#27AE60,color:#fff
     style PHASE2 fill:#f0f0f0,color:#333
 ```
+
 ```mermaid
 block-beta
     columns 2
-    A["Extraktion 111k Tickets"]:1 B["~255€ einmalig"]:1
-    C["Azure AI Search S1"]:1 D["~74€/Monat"]:1
-    E["Azure OpenAI Inference"]:1 F["~30€/Monat"]:1
+    A["Extraktion 111k Tickets"]:1 B["216 EUR einmalig"]:1
+    C["Azure AI Search S1"]:1 D["63 EUR/Monat"]:1
+    E["Azure OpenAI Inference"]:1 F["25 EUR/Monat"]:1
     G["Light Agents"]:1 H["inklusive"]:1
-    I["Azure KI-Kosten/Jahr"]:1 J["~1300€"]:1
-    K["Gesamt/Jahr inkl. Zendesk"]:1 L["~56500€"]:1
+    I["KI-Kosten pro Jahr"]:1 J["ca. 1.100 EUR"]:1
+    K["Gesamt pro Jahr inkl. Zendesk"]:1 L["ca. 47.900 EUR"]:1
 
     style I fill:#20808D,color:#fff
     style J fill:#20808D,color:#fff
@@ -86,23 +93,27 @@ block-beta
     style L fill:#27AE60,color:#fff
 ```
 
+---
 
-Eigener Server RZ Holland
+## Weg 3 — Eigener Server RZ Holland
+
+> **Empfehlung:** Sinnvoll ab Jahr 2 wenn Weg 2 validiert ist und weitere KI-Anwendungsfaelle (z.B. Sprach-Transkription, interne Tools) hinzukommen. Volle Datenkontrolle, hoechste DSGVO-Sicherheit, aber signifikantes Hardware-Investment und Betriebsaufwand.
+
 ```mermaid
 flowchart TD
-    A([Ticket eingeht in Zendesk]) --> B[Zendesk empfaengt Ticket]
+    A([Ticket eingeht]) --> B[Zendesk empfaengt Ticket]
     B --> C[Zendesk App<br>Agent oeffnet Ticket]
-    C -->|App-Aufruf| D[App sendet Ticket-Text<br>via HTTPS API]
-    D -->|HTTPS intern| E[Eigener Server RZ Holland<br>Qdrant Vektor-Suche]
-    E --> F[Top-3 aehnliche Loesungen<br>aus 111k Tickets]
-    F --> G[Lokales LLM<br>Mistral-Small / Qwen2.5<br>auf RTX 6000 Ada]
-    G --> H[Vorschlag im<br>Zendesk App-Panel]
-    H -->|Gut genug| I[Agent uebernimmt<br>und sendet an Kunde]
+    C -->|App-Aufruf| D[Ticket-Text<br>via HTTPS API]
+    D -->|intern| E[RZ Holland<br>Qdrant Vektorsuche]
+    E --> F[Top-3 Loesungen<br>aus 111k Tickets]
+    F --> G[Lokales LLM<br>Mistral / Qwen2.5<br>RTX 6000 Ada]
+    G --> H[Vorschlag im<br>App-Panel]
+    H -->|Gut genug| I[Agent sendet<br>an Kunde]
     H -->|Anpassen| K[Agent editiert<br>und sendet]
     I --> L([Ticket geloest])
     K --> L
 
-    subgraph INFRA [Infrastruktur RZ Holland - On-Premise]
+    subgraph INFRA [On-Premise RZ Holland]
         E
         F
         G
@@ -114,17 +125,18 @@ flowchart TD
     style L fill:#27AE60,color:#fff
     style INFRA fill:#eef5ff,color:#333
 ```
+
 ```mermaid
 block-beta
     columns 2
-    A["Hardware 2x RTX 6000 Ada + Server"]:1 B["22000€ einmalig"]:1
-    C["Abschreibung 3 Jahre"]:1 D["7000€/Jahr"]:1
-    E["RZ-Hosting Holland"]:1 F["~4800€/Jahr"]:1
-    G["Strom"]:1 H["~2000€/Jahr"]:1
-    I["KI-Infrastruktur Jahr 1"]:1 J["~13800€"]:1
-    K["KI-Infrastruktur ab Jahr 2"]:1 L["~6800€"]:1
-    M["Gesamt Jahr 1 inkl. Zendesk"]:1 N["~70800€"]:1
-    O["Gesamt ab Jahr 2 inkl. Zendesk"]:1 P["~63200€"]:1
+    A["2x RTX 6000 Ada + Server"]:1 B["22.000 EUR einmalig"]:1
+    C["Abschreibung 3 Jahre"]:1 D["7.000 EUR/Jahr"]:1
+    E["RZ-Hosting Holland"]:1 F["4.800 EUR/Jahr"]:1
+    G["Strom ca. 2kW"]:1 H["2.000 EUR/Jahr"]:1
+    I["KI-Infrastruktur Jahr 1"]:1 J["13.800 EUR"]:1
+    K["KI-Infrastruktur ab Jahr 2"]:1 L["6.800 EUR"]:1
+    M["Gesamt Jahr 1 inkl. Zendesk"]:1 N["ca. 60.500 EUR"]:1
+    O["Gesamt ab Jahr 2 inkl. Zendesk"]:1 P["ca. 53.500 EUR"]:1
 
     style I fill:#E8A838,color:#333
     style J fill:#E8A838,color:#333
@@ -136,18 +148,22 @@ block-beta
     style P fill:#27AE60,color:#fff
 ```
 
+---
 
-Hetzner GPU-Cloud
+## Weg 4 — Hetzner GPU-Cloud
+
+> **Empfehlung:** **Beste Langzeit-Option** nach Validierung mit Weg 2. Kein Hardware-Investment, DSGVO-konform in Deutschland, On-Demand skalierbar. Migration von Weg 2 auf Weg 4 erfordert keine Aenderungen an der Zendesk App.
+
 ```mermaid
 flowchart TD
-    A([Ticket eingeht in Zendesk]) --> B[Zendesk empfaengt Ticket]
+    A([Ticket eingeht]) --> B[Zendesk empfaengt Ticket]
     B --> C[Zendesk App<br>Agent oeffnet Ticket]
-    C -->|App-Aufruf| D[App sendet Ticket-Text<br>via HTTPS API]
-    D -->|HTTPS| E[Hetzner GPU-Cloud DE<br>Qdrant Vektor-Suche]
-    E --> F[Top-3 aehnliche Loesungen<br>aus 111k Tickets]
-    F --> G[Lokales LLM<br>Mistral-Small / Qwen2.5<br>auf Hetzner GPU]
-    G --> H[Vorschlag im<br>Zendesk App-Panel]
-    H -->|Gut genug| I[Agent uebernimmt<br>und sendet an Kunde]
+    C -->|App-Aufruf| D[Ticket-Text<br>via HTTPS API]
+    D -->|HTTPS| E[Hetzner GPU-Cloud DE<br>Qdrant Vektorsuche]
+    E --> F[Top-3 Loesungen<br>aus 111k Tickets]
+    F --> G[Lokales LLM<br>Mistral / Qwen2.5<br>Hetzner GPU]
+    G --> H[Vorschlag im<br>App-Panel]
+    H -->|Gut genug| I[Agent sendet<br>an Kunde]
     H -->|Anpassen| K[Agent editiert<br>und sendet]
     I --> L([Ticket geloest])
     K --> L
@@ -164,15 +180,16 @@ flowchart TD
     style L fill:#27AE60,color:#fff
     style HETZNER fill:#fff3e0,color:#333
 ```
+
 ```mermaid
 block-beta
     columns 2
     A["Hardware-Investment"]:1 B["keines"]:1
-    C["Hetzner On-Demand GPU"]:1 D["~350€/Monat"]:1
-    E["Hetzner Dauerbetrieb GEX130"]:1 F["~1094€/Monat"]:1
-    G["Hetzner Buerozeiten GEX44"]:1 H["~102€/Monat"]:1
-    I["KI-Infrastruktur/Jahr On-Demand"]:1 J["~4200€"]:1
-    K["Gesamt/Jahr inkl. Zendesk"]:1 L["~59600€"]:1
+    C["On-Demand GPU"]:1 D["ca. 300 EUR/Monat"]:1
+    E["Dauerbetrieb GEX130"]:1 F["ca. 927 EUR/Monat"]:1
+    G["Buerozeiten GEX44"]:1 H["ca. 86 EUR/Monat"]:1
+    I["KI-Infrastruktur On-Demand/Jahr"]:1 J["ca. 3.600 EUR"]:1
+    K["Gesamt pro Jahr inkl. Zendesk"]:1 L["ca. 50.300 EUR"]:1
 
     style I fill:#20808D,color:#fff
     style J fill:#20808D,color:#fff
@@ -180,21 +197,25 @@ block-beta
     style L fill:#27AE60,color:#fff
 ```
 
+---
 
-Atlassian Rovo
+## Weg 5 — Atlassian Rovo
+
+> **Empfehlung:** Nur sinnvoll wenn eine **vollstaendige Migration von Zendesk auf JSM** geplant ist. Credit-Limit von 70 Interaktionen/User/Monat ist fuer produktiven Support unzureichend. Rovo beruecksichtigt nur Tickets im Zugriffsbereich des jeweiligen Agenten — kein globaler Wissenspool.
+
 ```mermaid
 flowchart TD
-    A([Ticket eingeht]) --> B[Jira Service Management<br>empfaengt Ticket]
+    A([Ticket eingeht]) --> B[JSM empfaengt Ticket]
     B --> C[Agent oeffnet Ticket<br>in Jira]
     C --> D[Rovo Chat<br>im Jira-Panel]
     D --> E[Rovo durchsucht<br>Ticket-Index]
-    E --> F[Rovo durchsucht<br>Jira + Confluence Index]
-    F --> G{Passende Loesung<br>gefunden?}
+    E --> F[Rovo durchsucht<br>Jira + Confluence]
+    F --> G{Loesung gefunden?}
     G -->|Ja| H[Rovo-Vorschlag<br>im Jira-Panel]
     G -->|Nein| X([Keine Antwort<br>oder Halluzination])
-    H -->|Gut genug| I[Agent uebernimmt<br>und sendet an Kunde]
+    H -->|Gut genug| I[Agent sendet<br>an Kunde]
     H -->|Anpassen| K[Agent editiert<br>und sendet]
-    X --> J[Agent bearbeitet<br>manuell]
+    X --> J[Agent manuell]
     I --> L([Ticket geloest])
     K --> L
     J --> L
@@ -206,8 +227,8 @@ flowchart TD
     end
 
     subgraph IMPORT [Datengrundlage - einmalig importiert]
-        Z1[Importierte Zendesk-Tickets<br>als Wissensbasis] --> E
-        Z2[Jira-Tickets +<br>Confluence-Artikel] --> F
+        Z1[Importierte Zendesk-Tickets] --> E
+        Z2[Jira + Confluence-Artikel] --> F
     end
 
     style A fill:#20808D,color:#fff
@@ -218,15 +239,16 @@ flowchart TD
     style ROVO fill:#f0f0f0,color:#333
     style IMPORT fill:#eef5ff,color:#333
 ```
+
 ```mermaid
 block-beta
     columns 2
-    A["JSM Premium"]:1 B["140 User x €47 = 6580€/Monat"]:1
-    C["Rovo Add-on"]:1 D["140 User x €16 = 2240€/Monat"]:1
-    E["Gesamt/Monat"]:1 F["~8820€"]:1
-    G["Gesamt/Jahr"]:1 H["~105840€"]:1
-    I["Credit-Limit Premium"]:1 J["70 Interaktionen/User/Monat"]:1
-    K["Credits gesamt 140 User (ehemalige Zendesk-User"]:1 L["9800 Credits/Monat"]:1
+    A["JSM Premium"]:1 B["140 User x 47 EUR = 6.580 EUR/Mon"]:1
+    C["Rovo Add-on"]:1 D["140 User x 16 EUR = 2.240 EUR/Mon"]:1
+    E["Gesamt pro Monat"]:1 F["ca. 8.820 EUR"]:1
+    G["Gesamt pro Jahr"]:1 H["ca. 105.840 EUR"]:1
+    I["Credit-Limit Premium"]:1 J["70 Abfragen/User/Monat"]:1
+    K["Credits 140 User gesamt"]:1 L["9.800 Credits/Monat"]:1
     M["Zusaetzliche Credits"]:1 N["separat berechnet"]:1
 
     style E fill:#E8A838,color:#333
@@ -237,14 +259,14 @@ block-beta
     style N fill:#E85858,color:#fff
 ```
 
+---
 
-Direktvergleich KI-Infrastruktur 
+## Direktvergleich KI-Infrastruktur
+
 ```mermaid
 xychart-beta
-    title "KI-Infrastrukturkosten pro Jahr ohne Zendesk-Lizenz"
-    x-axis ["Weg 1 Zendesk", "Weg 2 Azure", "Weg 3 J1", "Weg 3 J2+", "Weg 4 Hetzner", "Weg 5 Rovo"]
-    y-axis "Euro pro Jahr" 0 --> 80000
-    bar [72000, 1300, 13800, 6800, 4200, 50640] 
+    title "KI-Infrastrukturkosten pro Jahr ohne Zendesk-Lizenz (EUR)"
+    x-axis ["W1 Zendesk", "W2 Azure", "W3 Jahr 1", "W3 ab Jahr 2", "W4 Hetzner", "W5 Rovo"]
+    y-axis "EUR pro Jahr" 0 --> 80000
+    bar 
 ```
-
-
