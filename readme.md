@@ -205,10 +205,12 @@ block-beta
 ## Weg 2 — Azure RAG (Full Stack)
 
 > **Wichtiger Hinweis:** Der Name "Full Stack" ist erst dann zutreffend, wenn **Azure AI Search mit Vektorindex aktiv laeuft** — nur dann findet echtes semantisches Retrieval statt. Ohne Search-Komponente waere Weg 2 strukturell identisch mit Weg 1a (nur Inference ohne RAG).  
-> **Kein Fine-Tuning:** Das Basis-Modell (z.B. GPT-4o) wird nicht veraendert. Die 111k Tickets werden als Vektorindex in Azure AI Search gespeichert und bei jeder Anfrage semantisch durchsucht. Fine-Tuning waere ein grundlegend anderes Szenario mit ~1.224 EUR/Monat Modell-Hosting-Kosten — hier **nicht vorgesehen**.  
+> **Kein Fine-Tuning:** Das Basis-Modell (z.B. GPT-4o) wird nicht veraendert oder trainiert. RAG liefert Wissen dynamisch zur Laufzeit — das ist die korrekte Architektur fuer dynamische Support-Daten. Fine-Tuning wuerde ein statisches, schnell veraltetes Modell erzeugen und ~1.224 EUR/Monat reines Hosting kosten — hier **nicht vorgesehen**.  
 > **Wissensbasis:** 111k gefilterte Tickets (>2 Antworten, <5 Jahre) als Vektorindex + Help-Center-Artikel. Erstmals vollstaendige Abdeckung aller Produkte inkl. Communications.
 
 > **Empfehlung:** **Beste Option fuer den Einstieg mit echter KI-Qualitaet.** Infrastruktur bereits vorhanden, Extraktion laeuft, minimales Hardware-Risiko. Ideal fuer die ersten 6-12 Monate bis die Qualitaet validiert ist.
+
+> **Inference-Kalkulation:** Basis: ~4.000 Input-Token/Anfrage (Ticket-Text + RAG-Kontext Top-3) + ~1.500 Output-Token/Anfrage. GPT-4o Global: $2.50/1M Input, $10.00/1M Output (Stand Feb 2026).
 
 ```mermaid
 flowchart TD
@@ -254,20 +256,27 @@ flowchart TD
 block-beta
     columns 2
     A["Extraktion 111k Tickets"]:1 B["255 EUR einmalig"]:1
-    C["Embedding / Vektorisierung"]:1 D["ca. 10-20 EUR einmalig"]:1
-    E["Azure AI Search S1"]:1 F["74 EUR/Monat (Vektorindex)"]:1
-    G["Azure OpenAI Inference"]:1 H["30 EUR/Monat"]:1
-    I["Light Agents"]:1 J["inklusive"]:1
-    K["Hinweis: kein Fine-Tuning"]:1 L["Basis-Modell, kein Modell-Hosting noetig"]:1
-    M["KI-Kosten pro Jahr"]:1 N["ca. 1.300 EUR"]:1
-    O["Gesamt pro Jahr inkl. Zendesk"]:1 P["ca. 56.500 EUR"]:1
+    C["Embedding / Vektorisierung (einmalig)"]:1 D["ca. 10-20 EUR einmalig"]:1
+    E["Azure AI Search S1 (Vektorindex-Hosting)"]:1 F["74 EUR/Monat (Fixkosten)"]:1
+    G["Inference GPT-4o 4k Input + 1.5k Output"]:1 H["~23 EUR/Monat (1.000 Anfragen)"]:1
+    I["Inference GPT-4o skaliert"]:1 J["~69 EUR/Monat (3.000 Anfragen)"]:1
+    K["Inference GPT-4o skaliert"]:1 L["~115 EUR/Monat (5.000 Anfragen)"]:1
+    M["Hinweis: kein Fine-Tuning"]:1 N["Basis-Modell, kein Modell-Hosting noetig"]:1
+    O["KI-Kosten/Jahr konservativ 1k Anfragen/Mon"]:1 P["ca. 1.440 EUR"]:1
+    Q["KI-Kosten/Jahr realistisch 3k Anfragen/Mon"]:1 R["ca. 2.000 EUR"]:1
+    S["Gesamt/Jahr inkl. Zendesk konservativ"]:1 T["ca. 56.640 EUR"]:1
+    U["Gesamt/Jahr inkl. Zendesk realistisch"]:1 V["ca. 57.200 EUR"]:1
 
-    style M fill:#20808D,color:#fff
-    style N fill:#20808D,color:#fff
-    style O fill:#27AE60,color:#fff
-    style P fill:#27AE60,color:#fff
-    style K fill:#E8A838,color:#333
-    style L fill:#E8A838,color:#333
+    style O fill:#20808D,color:#fff
+    style P fill:#20808D,color:#fff
+    style Q fill:#20808D,color:#fff
+    style R fill:#20808D,color:#fff
+    style S fill:#27AE60,color:#fff
+    style T fill:#27AE60,color:#fff
+    style U fill:#27AE60,color:#fff
+    style V fill:#27AE60,color:#fff
+    style M fill:#E8A838,color:#333
+    style N fill:#E8A838,color:#333
 ```
 
 ---
@@ -466,7 +475,7 @@ xychart-beta
     title "KI-Infrastrukturkosten pro Jahr ohne Zendesk-Lizenz (EUR)"
     x-axis ["W1 Zendesk", "W1a Direkt", "W1b DialoX", "W2 Azure RAG", "W3 Jahr 1", "W3 ab Jahr 2", "W4 Hetzner", "W5 Rovo"]
     y-axis "EUR pro Jahr" 0 --> 80000
-    bar [72000, 300, 300, 1300, 14800, 7000, 4400, 50640]
+    bar [72000, 300, 300, 2000, 14800, 7000, 4400, 50640]
 ```
 
 ## Direktvergleich Gesamtkosten inkl. Zendesk / Jira-Lizenzen
@@ -476,5 +485,5 @@ xychart-beta
     title "Gesamtkosten pro Jahr inkl. Zendesk-Lizenz (EUR)"
     x-axis ["W1 Zendesk", "W1a Direkt", "W1b DialoX", "W2 Azure RAG", "W3 Jahr 1", "W3 ab Jahr 2", "W4 Hetzner", "W5 Rovo"]
     y-axis "EUR pro Jahr" 0 --> 180000
-    bar [127200, 55200, 55500, 56500, 69200, 62200, 59600, 105840]
+    bar [127200, 55200, 55500, 57200, 69200, 62200, 59600, 105840]
 ```
