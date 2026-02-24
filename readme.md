@@ -13,8 +13,8 @@
 
 | Wissensbasis | Quelle | Qualitaet | Abdeckung |
 |---|---|---|---|
-| Nur Help-Center-Artikel | Swyx-lastig, lueckenhaft | ⚠️ Gering | L1-Tickets, Swyx-Produkte |
-| Artikel + RAG ueber 111k Tickets | Gefilterte Ticketbasis | ✅ Hoch | L1/L2/L3, alle Produkte |
+| Nur Help-Center-Artikel | Swyx-lastig, lueckenhaft | Gering | L1-Tickets, Swyx-Produkte |
+| Artikel + RAG ueber 111k Tickets | Gefilterte Ticketbasis | Hoch | L1/L2/L3, alle Produkte |
 
 **Fazit:** Echter Mehrwert entsteht **nur durch RAG** ueber die gefilterten 111k Tickets — unabhaengig davon, ob Azure AI Search, Qdrant auf eigenem Server oder Qdrant bei Hetzner genutzt wird. Alle Wege ohne RAG sind als **temporaere PoC-Loesung** zu verstehen.
 
