@@ -47,8 +47,8 @@ flowchart TD
 ```mermaid
 block-beta
     columns 2
-    A["Suite Professional"]:1 B["40 x 115 EUR = 4600 EUR/Mon"]:1
-    C["Copilot Add-on"]:1 D["40 x 50 EUR = 2000 EUR/Mon"]:1
+    A["Suite Professional"]:1 B["40 x 115 EUR = 4.600 EUR/Mon"]:1
+    C["Copilot Add-on"]:1 D["40 x 50 EUR = 2.000 EUR/Mon"]:1
     E["Automated Resolutions"]:1 F["50/Agent x 2 EUR = 3.390 EUR/Mon"]:1
     G["Light Agents"]:1 H["inklusive"]:1
     I["Gesamt pro Monat"]:1 J["ca. 10.600 EUR"]:1
@@ -65,7 +65,8 @@ block-beta
 ## Weg 1a — Flask-Server direkt via Azure OpenAI (RZ Holland)
 
 > **Empfehlung:** Schnellster und schlankster Einstieg als Proof-of-Concept. Webhook-Integration bereits vorhanden, kein zusaetzlicher Middleware-Layer. Flask-Code ruft Azure OpenAI direkt auf — volle Kontrolle, minimale Latenz, keine DialoX-Lizenzabhaengigkeit.  
-> **Wissensbasis:** Help-Center-Artikel als Prompt-Kontext + optional wenige historische Tickets. Antwortqualitaet bei Communications-Produkten eingeschraenkt (lueckenhafte Artikel). Kein RAG = kein semantisches Retrieval. **Nur als PoC bis Weg 2 produktiv ist.**
+> **Wissensbasis:** Help-Center-Artikel als Prompt-Kontext + optional wenige historische Tickets. Antwortqualitaet bei Communications-Produkten eingeschraenkt. Kein RAG. **Nur als PoC bis Weg 2 produktiv ist.**  
+> **Inference-Kalkulation:** ~800 Input-Token (System-Prompt + Artikel + Ticket-Text) + ~500 Output-Token. GPT-4o: ~6 EUR/Monat bei 1.000 Anfragen/Monat (~77 EUR/Jahr).
 
 ```mermaid
 flowchart TD
@@ -111,13 +112,13 @@ block-beta
     columns 2
     A["Flask-Server RZ Holland"]:1 B["bereits vorhanden"]:1
     C["DialoX Lizenz"]:1 D["nicht benoetigt"]:1
-    E["Azure OpenAI Inference"]:1 F["bestehende Instanz"]:1
+    E["Azure OpenAI Inference (800/500 Token)"]:1 F["~6 EUR/Monat (1.000 Anfragen)"]:1
     G["Zusaetzliche Infrastruktur"]:1 H["keine"]:1
     I["Einrichtungsaufwand"]:1 J["minimal - direkter API-Call"]:1
     K["RAG / Vektorsuche"]:1 L["nicht vorhanden"]:1
     M["Wissensbasis"]:1 N["Nur Artikel (Swyx-lastig) + opt. wenige Tickets"]:1
-    O["Zusatzkosten pro Monat"]:1 P["nur Azure Inference ~25 EUR"]:1
-    Q["Gesamt pro Jahr inkl. Zendesk"]:1 R["ca. 55.200 EUR"]:1
+    O["KI-Kosten pro Jahr (1k Anfragen/Mon)"]:1 P["ca. 77 EUR"]:1
+    Q["Gesamt pro Jahr inkl. Zendesk"]:1 R["ca. 55.277 EUR"]:1
 
     style I fill:#27AE60,color:#fff
     style J fill:#27AE60,color:#fff
@@ -133,8 +134,9 @@ block-beta
 
 ## Weg 1b — DialoX als Middleware-Layer via Flask-Server (RZ Holland)
 
-> **Empfehlung:** Nur sinnvoll wenn DialoX aktiv fuer weitere Dialog-Features genutzt wird (Multi-Bot-Routing, Session-Management). Als reiner Pass-Through zu Azure OpenAI kein architektonischer Mehrwert gegenueber Weg 1a.  
-> **Wissensbasis:** Ausschliesslich Help-Center-Artikel — DialoX kann die 111k Tickets volumenseitig nicht verarbeiten. Damit strukturell vergleichbar mit Weg 1 (Zendesk Native): Antwortqualitaet fuer Communications-Produkte eingeschraenkt, keine historischen Loesungsmuster. **Nur als PoC geeignet, kein produktiver Dauerbetrieb.**
+> **Empfehlung:** Nur sinnvoll wenn DialoX aktiv fuer weitere Dialog-Features genutzt wird (Multi-Bot-Routing, Session-Management). Als reiner Pass-Through zu Azure OpenAI kein architektonischer Mehrwert gegenueber Weg 1a — ein zusaetzlicher API-Hop, eine zusaetzliche Abhaengigkeit.  
+> **Wissensbasis:** Ausschliesslich Help-Center-Artikel — DialoX kann die 111k Tickets volumenseitig nicht verarbeiten. Strukturell vergleichbar mit Weg 1 (Zendesk Native). **Nur als PoC geeignet.**  
+> **Inference-Kalkulation:** Gleich wie Weg 1a — ~800 Input-Token + ~500 Output-Token. GPT-4o: ~6 EUR/Monat bei 1.000 Anfragen/Monat (~77 EUR/Jahr).
 
 ```mermaid
 flowchart TD
@@ -182,13 +184,13 @@ block-beta
     columns 2
     A["Flask-Server RZ Holland"]:1 B["bereits vorhanden"]:1
     C["DialoX Lizenz"]:1 D["bestehender Vertrag"]:1
-    E["Azure OpenAI Inference"]:1 F["bestehende Instanz"]:1
+    E["Azure OpenAI Inference (800/500 Token)"]:1 F["~6 EUR/Monat (1.000 Anfragen)"]:1
     G["Zusaetzliche Infrastruktur"]:1 H["keine"]:1
     I["Einrichtungsaufwand"]:1 J["gering - Webhook vorhanden"]:1
     K["RAG / Vektorsuche"]:1 L["nicht vorhanden"]:1
     M["Wissensbasis"]:1 N["NUR Artikel (Swyx-lastig), keine Tickets moeglich"]:1
-    O["Zusatzkosten pro Monat"]:1 P["nur Azure Inference ~25 EUR"]:1
-    Q["Gesamt pro Jahr inkl. Zendesk"]:1 R["ca. 55.500 EUR"]:1
+    O["KI-Kosten pro Jahr (1k Anfragen/Mon)"]:1 P["ca. 77 EUR"]:1
+    Q["Gesamt pro Jahr inkl. Zendesk"]:1 R["ca. 55.577 EUR"]:1
 
     style I fill:#27AE60,color:#fff
     style J fill:#27AE60,color:#fff
@@ -204,13 +206,12 @@ block-beta
 
 ## Weg 2 — Azure RAG (Full Stack)
 
-> **Wichtiger Hinweis:** Der Name "Full Stack" ist erst dann zutreffend, wenn **Azure AI Search mit Vektorindex aktiv laeuft** — nur dann findet echtes semantisches Retrieval statt. Ohne Search-Komponente waere Weg 2 strukturell identisch mit Weg 1a (nur Inference ohne RAG).  
-> **Kein Fine-Tuning:** Das Basis-Modell (z.B. GPT-4o) wird nicht veraendert oder trainiert. RAG liefert Wissen dynamisch zur Laufzeit — das ist die korrekte Architektur fuer dynamische Support-Daten. Fine-Tuning wuerde ein statisches, schnell veraltetes Modell erzeugen und ~1.224 EUR/Monat reines Hosting kosten — hier **nicht vorgesehen**.  
-> **Wissensbasis:** 111k gefilterte Tickets (>2 Antworten, <5 Jahre) als Vektorindex + Help-Center-Artikel. Erstmals vollstaendige Abdeckung aller Produkte inkl. Communications.
+> **Wichtiger Hinweis:** Der Name "Full Stack" ist erst dann zutreffend, wenn **Azure AI Search mit Vektorindex aktiv laeuft** — nur dann findet echtes semantisches Retrieval statt. Ohne Search-Komponente waere Weg 2 strukturell identisch mit Weg 1a.  
+> **Kein Fine-Tuning:** Das Basis-Modell (z.B. GPT-4o) wird nicht veraendert oder trainiert. RAG liefert Wissen dynamisch zur Laufzeit. Fine-Tuning wuerde ein statisches, schnell veraltetes Modell erzeugen und ~1.224 EUR/Monat reines Hosting kosten — hier **nicht vorgesehen**.  
+> **Wissensbasis:** 111k gefilterte Tickets (>2 Antworten, <5 Jahre) als Vektorindex + Help-Center-Artikel. Erstmals vollstaendige Abdeckung aller Produkte inkl. Communications.  
+> **Inference-Kalkulation:** ~4.000 Input-Token/Anfrage (Ticket-Text + RAG-Kontext Top-3) + ~1.500 Output-Token. GPT-4o Global: $2,50/1M Input, $10,00/1M Output (Stand Feb 2026).
 
-> **Empfehlung:** **Beste Option fuer den Einstieg mit echter KI-Qualitaet.** Infrastruktur bereits vorhanden, Extraktion laeuft, minimales Hardware-Risiko. Ideal fuer die ersten 6-12 Monate bis die Qualitaet validiert ist.
-
-> **Inference-Kalkulation:** Basis: ~4.000 Input-Token/Anfrage (Ticket-Text + RAG-Kontext Top-3) + ~1.500 Output-Token/Anfrage. GPT-4o Global: $2.50/1M Input, $10.00/1M Output (Stand Feb 2026).
+> **Empfehlung:** **Beste Option fuer den Einstieg mit echter KI-Qualitaet.** Infrastruktur bereits vorhanden, Extraktion laeuft, minimales Hardware-Risiko. Ideal fuer die ersten 6-12 Monate.
 
 ```mermaid
 flowchart TD
@@ -284,7 +285,7 @@ block-beta
 ## Weg 3 — Eigener Server RZ Holland (RAG)
 
 > **Empfehlung:** Sinnvoll ab Jahr 2 wenn Weg 2 validiert ist und weitere KI-Anwendungsfaelle (z.B. Sprach-Transkription, interne Tools) hinzukommen. Volle Datenkontrolle, hoechste DSGVO-Sicherheit, aber signifikantes Hardware-Investment und Betriebsaufwand.  
-> **Wissensbasis:** 111k gefilterte Tickets als Vektorindex in Qdrant (On-Premise) + Help-Center-Artikel. Gleiche RAG-Qualitaet wie Weg 2, aber vollstaendig unter eigener Kontrolle.
+> **Wissensbasis:** 111k gefilterte Tickets als Vektorindex in Qdrant (On-Premise) + Help-Center-Artikel. Gleiche RAG-Qualitaet wie Weg 2, keine variablen Inference-Kosten da lokales LLM.
 
 ```mermaid
 flowchart TD
@@ -326,19 +327,20 @@ block-beta
     C["Abschreibung 3 Jahre"]:1 D["7.000 EUR/Jahr"]:1
     E["RZ-Hosting Holland"]:1 F["4.800 EUR/Jahr"]:1
     G["Strom ca. 2kW"]:1 H["2.000 EUR/Jahr"]:1
-    I["KI-Infrastruktur Jahr 1"]:1 J["13.800 EUR"]:1
-    K["KI-Infrastruktur ab Jahr 2"]:1 L["6.800 EUR"]:1
-    M["Gesamt Jahr 1 inkl. Zendesk"]:1 N["ca. 69.200 EUR"]:1
-    O["Gesamt ab Jahr 2 inkl. Zendesk"]:1 P["ca. 62.200 EUR"]:1
+    I["Variable Inference-Kosten"]:1 J["keine (lokales LLM)"]:1
+    K["KI-Infrastruktur Jahr 1"]:1 L["13.800 EUR"]:1
+    M["KI-Infrastruktur ab Jahr 2"]:1 N["6.800 EUR"]:1
+    O["Gesamt Jahr 1 inkl. Zendesk"]:1 P["ca. 69.200 EUR"]:1
+    Q["Gesamt ab Jahr 2 inkl. Zendesk"]:1 R["ca. 62.200 EUR"]:1
 
-    style I fill:#E8A838,color:#333
-    style J fill:#E8A838,color:#333
-    style K fill:#20808D,color:#fff
-    style L fill:#20808D,color:#fff
-    style M fill:#E85858,color:#fff
-    style N fill:#E85858,color:#fff
-    style O fill:#27AE60,color:#fff
-    style P fill:#27AE60,color:#fff
+    style K fill:#E8A838,color:#333
+    style L fill:#E8A838,color:#333
+    style M fill:#20808D,color:#fff
+    style N fill:#20808D,color:#fff
+    style O fill:#E85858,color:#fff
+    style P fill:#E85858,color:#fff
+    style Q fill:#27AE60,color:#fff
+    style R fill:#27AE60,color:#fff
 ```
 
 ---
@@ -346,7 +348,7 @@ block-beta
 ## Weg 4 — Hetzner GPU-Cloud (RAG)
 
 > **Empfehlung:** **Beste Langzeit-Option** nach Validierung mit Weg 2. Kein Hardware-Investment, DSGVO-konform in Deutschland, On-Demand skalierbar. Migration von Weg 2 auf Weg 4 erfordert keine Aenderungen an der Zendesk App.  
-> **Wissensbasis:** 111k gefilterte Tickets als Vektorindex in Qdrant (Hetzner DE) + Help-Center-Artikel. Gleiche RAG-Qualitaet wie Weg 2 und 3.
+> **Wissensbasis:** 111k gefilterte Tickets als Vektorindex in Qdrant (Hetzner DE) + Help-Center-Artikel. Gleiche RAG-Qualitaet wie Weg 2 und 3. Keine variablen Inference-Kosten da lokales LLM.
 
 ```mermaid
 flowchart TD
@@ -386,23 +388,25 @@ block-beta
     columns 2
     A["Hardware-Investment"]:1 B["keines"]:1
     C["On-Demand GPU"]:1 D["ca. 350 EUR/Monat"]:1
-    E["Dauerbetrieb GEX130"]:1 F["ca. 1094 EUR/Monat"]:1
+    E["Dauerbetrieb GEX130"]:1 F["ca. 1.094 EUR/Monat"]:1
     G["Buerozeiten GEX44"]:1 H["ca. 102 EUR/Monat"]:1
-    I["KI-Infrastruktur On-Demand/Jahr"]:1 J["ca. 4.200 EUR"]:1
-    K["Gesamt pro Jahr inkl. Zendesk"]:1 L["ca. 59.600 EUR"]:1
+    I["Variable Inference-Kosten"]:1 J["keine (lokales LLM)"]:1
+    K["KI-Infrastruktur On-Demand/Jahr"]:1 L["ca. 4.200 EUR"]:1
+    M["Gesamt pro Jahr inkl. Zendesk"]:1 N["ca. 59.600 EUR"]:1
 
-    style I fill:#20808D,color:#fff
-    style J fill:#20808D,color:#fff
-    style K fill:#27AE60,color:#fff
-    style L fill:#27AE60,color:#fff
+    style K fill:#20808D,color:#fff
+    style L fill:#20808D,color:#fff
+    style M fill:#27AE60,color:#fff
+    style N fill:#27AE60,color:#fff
 ```
 
 ---
 
-## Weg 5 — Atlassian Rovo
+## Weg 5 — Atlassian Rovo (setzt JSM-Migration voraus)
 
 > **Empfehlung:** Nur sinnvoll wenn eine **vollstaendige Migration von Zendesk auf JSM** geplant ist. Credit-Limit von 70 Interaktionen/User/Monat ist fuer produktiven Support unzureichend.  
-> **Wissensbasis — kritischer Punkt:** Rovo beruecksichtigt nur Tickets im Zugriffsbereich des jeweiligen Agenten — kein globaler Wissenspool. Echter Mehrwert entsteht **nur wenn die 111k Zendesk-Tickets sauber nach JSM migriert werden** (Aufwand, Kosten und Datenverlust bei Migration sind gesondert zu pruefen). Ohne Migration: Wissensbasis beschraenkt auf importierte Artikel (Swyx-lastig) — strukturell vergleichbar mit Weg 1. Die Help-Center-Artikel decken Communications-Produkte nur ungenuegend ab.
+> **Wissensbasis — kritischer Punkt:** Echter Mehrwert entsteht **nur wenn die 111k Zendesk-Tickets sauber nach JSM migriert werden**. Ohne Migration: nur Swyx-lastige Artikel — strukturell vergleichbar mit Weg 1.  
+> **Migrationskosten Zendesk → JSM:** Externes Angebot vorliegend: ~8.000 EUR fuer Ticket-Uebernahme. Marktdurchschnitt laut Branchenquellen: 10.000–50.000 EUR fuer Professional Services. Hinzu kommen interne Admin-Kosten beider Seiten (Zendesk- und JSM-Admins), schaetzungsweise 15–30 Personentage a 800 EUR = 12.000–24.000 EUR. Datenverlust-Risiko: 15–20% der Custom Fields und Automatisierungsregeln nicht migrierbar. Parallelbetrieb waehrend Uebergang: ~2 Wochen Doppellizenz. **Gesamtmigration realistisch: 20.000–60.000 EUR einmalig.**
 
 ```mermaid
 flowchart TD
@@ -446,24 +450,28 @@ block-beta
     columns 2
     A["JSM Premium"]:1 B["140 User x 47 EUR = 6.580 EUR/Mon"]:1
     C["Rovo Add-on"]:1 D["140 User x 16 EUR = 2.240 EUR/Mon"]:1
-    E["Ticket-Migration Zendesk -> JSM"]:1 F["Aufwand + Kosten gesondert pruefen"]:1
-    G["Ohne Migration: Wissensbasis"]:1 H["nur Artikel (Swyx-lastig)"]:1
-    I["Gesamt pro Monat"]:1 J["ca. 8.820 EUR"]:1
-    K["Gesamt pro Jahr"]:1 L["ca. 105.840 EUR"]:1
-    M["Credit-Limit Premium"]:1 N["70 Abfragen/User/Monat"]:1
-    O["Credits 140 User gesamt"]:1 P["9.800 Credits/Monat"]:1
-    Q["Zusaetzliche Credits"]:1 R["separat berechnet"]:1
+    E["Migration Externe Dienstleister"]:1 F["8.000 EUR (Angebot) bis 50.000 EUR (Markt)"]:1
+    G["Migration Interne Admin-Kosten"]:1 H["ca. 12.000-24.000 EUR einmalig"]:1
+    I["Datenverlust-Risiko"]:1 J["15-20% Custom Fields nicht migrierbar"]:1
+    K["Parallelbetrieb Doppellizenz"]:1 L["ca. 2 Wochen zusaetzlich"]:1
+    M["Gesamt Migration einmalig"]:1 N["ca. 20.000-60.000 EUR"]:1
+    O["Gesamt pro Monat lfd. Betrieb"]:1 P["ca. 8.820 EUR"]:1
+    Q["Gesamt pro Jahr lfd. Betrieb"]:1 R["ca. 105.840 EUR"]:1
+    S["Credit-Limit Premium"]:1 T["70 Abfragen/User/Monat"]:1
+    U["Zusaetzliche Credits"]:1 V["separat berechnet"]:1
 
-    style I fill:#E8A838,color:#333
-    style J fill:#E8A838,color:#333
-    style K fill:#E85858,color:#fff
-    style L fill:#E85858,color:#fff
+    style M fill:#E85858,color:#fff
+    style N fill:#E85858,color:#fff
+    style O fill:#E8A838,color:#333
+    style P fill:#E8A838,color:#333
+    style Q fill:#E85858,color:#fff
+    style R fill:#E85858,color:#fff
     style E fill:#E85858,color:#fff
     style F fill:#E85858,color:#fff
     style G fill:#E85858,color:#fff
     style H fill:#E85858,color:#fff
-    style Q fill:#E85858,color:#fff
-    style R fill:#E85858,color:#fff
+    style I fill:#E85858,color:#fff
+    style J fill:#E85858,color:#fff
 ```
 
 ---
@@ -475,7 +483,7 @@ xychart-beta
     title "KI-Infrastrukturkosten pro Jahr ohne Zendesk-Lizenz (EUR)"
     x-axis ["W1 Zendesk", "W1a Direkt", "W1b DialoX", "W2 Azure RAG", "W3 Jahr 1", "W3 ab Jahr 2", "W4 Hetzner", "W5 Rovo"]
     y-axis "EUR pro Jahr" 0 --> 80000
-    bar [72000, 300, 300, 2000, 14800, 7000, 4400, 50640]
+    bar [72000, 77, 77, 2000, 14800, 7000, 4400, 50640]
 ```
 
 ## Direktvergleich Gesamtkosten inkl. Zendesk / Jira-Lizenzen
@@ -485,5 +493,5 @@ xychart-beta
     title "Gesamtkosten pro Jahr inkl. Zendesk-Lizenz (EUR)"
     x-axis ["W1 Zendesk", "W1a Direkt", "W1b DialoX", "W2 Azure RAG", "W3 Jahr 1", "W3 ab Jahr 2", "W4 Hetzner", "W5 Rovo"]
     y-axis "EUR pro Jahr" 0 --> 180000
-    bar [127200, 55200, 55500, 57200, 69200, 62200, 59600, 105840]
+    bar [127200, 55277, 55577, 57200, 69200, 62200, 59600, 105840]
 ```
