@@ -41,10 +41,12 @@ block-beta
     style J fill:#20808D,color:#fff
     style K fill:#E85858,color:#fff
     style L fill:#E85858,color:#fff
+```
+
 Weg 1a — Flask-Server direkt via Azure OpenAI (RZ Holland)
 Empfehlung: Schnellster und schlankster Einstieg als Proof-of-Concept. Webhook-Integration bereits vorhanden, kein zusaetzlicher Middleware-Layer. Flask-Code ruft Azure OpenAI direkt auf — volle Kontrolle, minimale Latenz, keine DialoX-Lizenzabhaengigkeit. Kein RAG bedeutet: Bei steigender Ticket-Menge sinkt die Antwortqualitaet, da kein semantisches Retrieval stattfindet. Geeignet fuer Help-Center-Artikel als Wissensbasis. Fuer historische Tickets nur mit Limit sinnvoll. Mittelfristig durch Weg 2 oder 4 ersetzen.
 
-
+```mermaid
 flowchart TD
     A([Ticket geht ein]) --> B[Zendesk empfaengt Ticket]
     B -->|Webhook| C[Flask-Server RZ Holland<br>bereitet Prompt vor]
@@ -100,10 +102,12 @@ block-beta
     style L fill:#E85858,color:#fff
     style Q fill:#20808D,color:#fff
     style R fill:#20808D,color:#fff
+```
+
 Weg 1b — DialoX als Middleware-Layer via Flask-Server (RZ Holland)
 Empfehlung: Nur sinnvoll wenn DialoX aktiv fuer weitere Dialog-Features genutzt wird (Multi-Bot-Routing, Session-Management). Als reiner Pass-Through zu Azure OpenAI bringt DialoX keinen architektonischen Mehrwert gegenueber Weg 1a — ein zusaetzlicher API-Hop, eine zusaetzliche Abhaengigkeit. DialoX ruft Azure OpenAI selbststaendig auf; kein eigener API-Call im Flask-Code noetig. Mittelfristig durch Weg 2 oder 4 ersetzen.
 
-
+```mermaid
 flowchart TD
     A([Ticket geht ein]) --> B[Zendesk empfaengt Ticket]
     B -->|Webhook| C[Flask-Server RZ Holland<br>erstellt User + Konversation]
@@ -161,12 +165,14 @@ block-beta
     style L fill:#E85858,color:#fff
     style Q fill:#20808D,color:#fff
     style R fill:#20808D,color:#fff
+```
+
 Weg 2 — Azure Full Stack (RAG)
 Wichtiger Hinweis: Weg 2 basiert auf RAG (Retrieval-Augmented Generation) ueber Azure AI Search — kein Fine-Tuning. Das bedeutet: Das Basis-Modell (z.B. GPT-4o) wird nicht veraendert oder neu trainiert. Stattdessen werden deine 111k Tickets als Vektorindex in Azure AI Search gespeichert und bei jeder Anfrage semantisch durchsucht. Die Daten (Vektorindex) liegen vollstaendig bei Azure. Ein Fine-Tuning waere ein grundlegend anderes Szenario mit deutlich hoeheren Kosten (~1.224 EUR/Monat nur fuer Modell-Hosting, unabhaengig von der Nutzung) und ist hier ausdruecklich nicht vorgesehen.
 
 Empfehlung: Beste Option fuer den Einstieg. Infrastruktur ist bereits vorhanden, Extraktion laeuft, minimales Hardware-Risiko. Ideal fuer die ersten 6-12 Monate bis die Qualitaet validiert ist.
 
-
+```mermaid
 flowchart TD
     A([Ticket geht ein]) --> B[Zendesk empfaengt Ticket]
     B --> C[Zendesk App<br>Agent oeffnet Ticket]
@@ -208,10 +214,12 @@ block-beta
     style P fill:#27AE60,color:#fff
     style K fill:#E8A838,color:#333
     style L fill:#E8A838,color:#333
+```
+
 Weg 3 — Eigener Server RZ Holland
 Empfehlung: Sinnvoll ab Jahr 2 wenn Weg 2 validiert ist und weitere KI-Anwendungsfaelle (z.B. Sprach-Transkription, interne Tools) hinzukommen. Volle Datenkontrolle, hoechste DSGVO-Sicherheit, aber signifikantes Hardware-Investment und Betriebsaufwand.
 
-
+```mermaid
 flowchart TD
     A([Ticket geht ein]) --> B[Zendesk empfaengt Ticket]
     B --> C[Zendesk App<br>Agent oeffnet Ticket]
@@ -256,10 +264,12 @@ block-beta
     style N fill:#E85858,color:#fff
     style O fill:#27AE60,color:#fff
     style P fill:#27AE60,color:#fff
+```
+
 Weg 4 — Hetzner GPU-Cloud
 Empfehlung: Beste Langzeit-Option nach Validierung mit Weg 2. Kein Hardware-Investment, DSGVO-konform in Deutschland, On-Demand skalierbar. Migration von Weg 2 auf Weg 4 erfordert keine Aenderungen an der Zendesk App.
 
-
+```mermaid
 flowchart TD
     A([Ticket geht ein]) --> B[Zendesk empfaengt Ticket]
     B --> C[Zendesk App<br>Agent oeffnet Ticket]
@@ -298,10 +308,12 @@ block-beta
     style J fill:#20808D,color:#fff
     style K fill:#27AE60,color:#fff
     style L fill:#27AE60,color:#fff
+```
+
 Weg 5 — Atlassian Rovo
 Empfehlung: Nur sinnvoll wenn eine vollstaendige Migration von Zendesk auf JSM geplant ist. Credit-Limit von 70 Interaktionen/User/Monat ist fuer produktiven Support unzureichend. Rovo beruecksichtigt nur Tickets im Zugriffsbereich des jeweiligen Agenten — kein globaler Wissenspool.
 
-
+```mermaid
 flowchart TD
     A([Ticket geht ein]) --> B[JSM empfaengt Ticket]
     B --> C[Agent oeffnet Ticket<br>in Jira]
@@ -353,13 +365,18 @@ block-beta
     style H fill:#E85858,color:#fff
     style M fill:#E85858,color:#fff
     style N fill:#E85858,color:#fff
+```
+
 Direktvergleich KI-Infrastruktur
 
+```mermaid
 xychart-beta
     title "KI-Infrastrukturkosten pro Jahr ohne Zendesk-Lizenz (EUR)"
     x-axis ["W1 Zendesk", "W1a Direkt", "W1b DialoX", "W2 Azure", "W3 Jahr 1", "W3 ab Jahr 2", "W4 Hetzner", "W5 Rovo"]
     y-axis "EUR pro Jahr" 0 --> 80000
-    bar 
+    bar
+```
+```mermaid
 Direktvergleich Gesamtkosten inkl. Zendesk / Jira-Lizenzen
 
 xychart-beta
@@ -367,7 +384,7 @@ xychart-beta
     x-axis ["W1 Zendesk", "W1a Direkt", "W1b DialoX", "W2 Azure", "W3 Jahr 1", "W3 ab Jahr 2", "W4 Hetzner", "W5 Rovo"]
     y-axis "EUR pro Jahr" 0 --> 180000
     bar 
-
+```
 
 ***
 
