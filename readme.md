@@ -31,7 +31,7 @@ flowchart TD
     C -->|Ja| D[AI Agent antwortet<br>automatisch]
     C -->|Nein| E[Ticket wird<br>Agent zugewiesen]
     D --> F{Kunde zufrieden?<br>72h kein Reply}
-    F -->|Ja| G[Automated Resolution<br>1.70 EUR pro Ticket]
+    F -->|Ja| G[Automated Resolution<br>2 EUR pro Ticket]
     F -->|Nein / Eskalation| E
     E --> H[Agent sieht Ticket<br>+ Copilot-Vorschlag]
     H --> I[Agent antwortet manuell]
