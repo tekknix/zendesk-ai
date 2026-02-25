@@ -96,7 +96,7 @@ RAG erhoert die Token-Kosten pro Anfrage, liefert aber qualitativ ueberlegene An
 
 ## Kostenperspektive
 
-| Phase | Weg | KI-Kosten/Jahr | Gesamt lfd. Betrieb/Jahr | Einmalig |
+| Phase | Weg | KI-Kosten/Jahr | Gesamt lfd. Betrieb/Jahr inkl. Zendesk | Einmalig |
 |---|---|---|---|---|
 | Phase 1 | 1a — Flask direkt | ~77 EUR | ~55.277 EUR | — |
 | Phase 2 | 2 — Azure RAG | ~1.440-2.000 EUR | ~56.640-57.200 EUR | ~275 EUR |
